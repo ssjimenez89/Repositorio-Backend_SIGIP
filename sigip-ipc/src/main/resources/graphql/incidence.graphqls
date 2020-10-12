@@ -1,0 +1,24 @@
+type Incidence {
+    id: Long!
+    description: String!
+    acronym: String!
+    active: Boolean!
+}
+
+
+extend type Query {
+    incidences: [Incidence!]
+
+    incidencePaging(page: Int!, size: Int!):[Incidence!]
+    totalIncidence:Int
+    incidenceByAcronym(acronym: String!): Incidence
+    incidenceById(id: Long!): Incidence
+    incidenceByDescriptionContains(description: String!,page: Int!, size: Int!): [Incidence!]
+    totalIncidenceByDescriptionContains(description: String!):Int
+}
+
+
+extend type Mutation{
+    addIncidence(description: String! , acronym: String!,active: Boolean!): Incidence
+    editIncidence(id:Long!, description: String!, acronym: String!, active: Boolean!): Incidence
+}

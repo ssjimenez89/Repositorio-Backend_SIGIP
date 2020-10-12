@@ -1,0 +1,15 @@
+type OneiIndex {
+    id: Long!
+    description: String!
+    active: Boolean
+    #    classifiers: [Classifier]
+}
+
+extend type Query {
+    oneiIndexes: [OneiIndex]
+}
+
+
+extend type Mutation{
+    addOneiIndex(description: String): OneiIndex
+}

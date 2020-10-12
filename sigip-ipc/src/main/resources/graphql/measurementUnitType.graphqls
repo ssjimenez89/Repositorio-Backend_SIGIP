@@ -1,0 +1,25 @@
+type MeasurementUnitType {
+    id: Long!
+    description: String!
+    active: Boolean!
+
+}
+
+
+extend type Query {
+    allMeasurementUnitTypes: [MeasurementUnitType!]
+    measurementUnitTypesPaging(page: Int!, size: Int!):[MeasurementUnitType!]
+    measurementUnitTypeById(id: Long!): MeasurementUnitType
+    measurementUnitTypeByDescriptionContains(description: String!,page: Int!, size: Int!): [MeasurementUnitType!]
+    totalMeasurementUnitType:Int
+    totalMeasurementUnitTypeByDescriptionContains(description: String!):Int
+
+    measurementUnitTypeByDescrip(descripcion: String!): MeasurementUnitType
+    measurementUnitTypesActives: [MeasurementUnitType!]
+}
+
+
+extend type Mutation{
+    addMeasurementUnitType(description: String! ,active: Boolean!): MeasurementUnitType!
+    editMeasurementUnitType(id:Long!, description: String! ,active: Boolean!): MeasurementUnitType!
+}

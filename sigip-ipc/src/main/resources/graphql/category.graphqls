@@ -1,0 +1,23 @@
+type Category {
+    # identificador de la categoria
+    id: Long!
+    # descripcion de la categoria
+    description: String!
+    #activo
+    active: Boolean!
+}
+
+extend type Query {
+    categories: [Category!]
+    categoriesPaging(page: Int!, size: Int!):[Category!]
+    categoryById(id: Long!): Category
+    totalCategories:Int
+    categoryByDescriptionContains(description: String!,page: Int!, size: Int!): [Category!]
+    totalCategoryByDescriptionContains(description: String!):Int
+}
+
+
+extend type Mutation{
+    addCategory(description: String!,active: Boolean!): Category
+    editCategory(id:Long!,description: String!,active: Boolean!): Category
+}

@@ -1,0 +1,83 @@
+# Clasificador( clase, subclase, division, etc)
+scalar Long
+type Classifier {
+    # identificador del clasificador
+    id: Long!
+    # nombre del clasificador
+    description: String!
+    active: Boolean
+    parent: Classifier
+    # hijos asociados del clasificador
+    childrens: [Classifier]
+    # nivel del clasificador
+    level: Int
+    # indice al que pertenece el clasificador
+    #    oneiIndex: OneiIndex
+    # calculo del indice
+    #    index: Float
+    # Code
+    code: String!
+    # tipo de variedad
+    varietyType: VarietyType
+    # tipo clasificador
+    classifierType: ClassifierType
+    # mercado
+    marketCurrencies: [MarketCurrency]
+    # VariedadesCaracteristicasEspecificaciones
+    #varietyCharactSpecifics:[VarietyCharactSpecific]
+    # Ponderaciones del clasificador
+
+    classifierWeighings: [ClassifierWeighing]
+
+    varietyCharactSpecifics:[VarietyCharactSpecific]
+
+    varietyCharactSpecificsActives:[VarietyCharactSpecific]
+
+}
+input varietyCharactSpecificsInput{
+    id: Long!
+    active:Boolean
+}
+input ClassifierInput{
+    code: String!
+    description: String!
+    action: String
+    parent: Int
+    weights: [ClassifierWeighingInput]
+    idclassifierType: Long
+    varietyType: Long
+    id: Long
+    idmarket: [Long]
+    marketCurrencies:[Long]
+    varietyCharactSpecifics:[varietyCharactSpecificsInput]
+    specifics:[Long]
+}
+
+input ClassifierWeighingInput{
+    id: Long
+    weighingType: Int
+    currency: Int
+    value: Float
+}
+
+extend type Query {
+    classifier(description: String!): Classifier
+    classifiers(id: Long): [Classifier!]
+    classifierById(id: Long!): Classifier
+    allClassifierXClassifierType(idclassifierType: Long!): [Classifier!]
+    allClassifierXClassifierTypePaging(idclassifierType: Long!, page: Int!, size: Int!):[Classifier!]
+    totalClassifierXClassifierType(idclassifierType: Long!):Int
+    classifierByMarket(idmarket: Long!, idestablishment: Long!, size: Int!, page: Int!): [Classifier!]
+    totalClassifierByMarket(idmarket: Long!, idestablishment: Long!):Int
+    variedadesFiltradas(descripcion: String!,page: Int!, size: Int!):[Classifier!]
+    variedadesFiltradasByMarket(idmarket: Long!, idestablishment: Long!, size: Int!, page: Int!, descripcion: String!):[Classifier!]
+    totalvariedadesFiltradasByMarket(idmarket: Long!, idestablishment: Long!, descripcion: String!):Int!
+    articulosFiltrados(descripcion: String!,page: Int!, size: Int!):[Classifier!]
+
+
+}
+
+extend type Mutation{
+    manageClassifier(input:ClassifierInput): Classifier
+    deleteClassifier(id:ID!): Int
+}

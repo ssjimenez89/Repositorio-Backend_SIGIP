@@ -1,0 +1,25 @@
+type Cargo{
+    id: Long!
+    descripcion: String!
+    activo: Boolean!
+}
+
+input cargo{
+    id: Long
+    descripcion: String!
+    activo: Boolean
+}
+
+extend type Query {
+    cargos: [Cargo!]
+    cargosPaging(page: Int!, size: Int!):[Cargo!]
+    cargoById(id: Long!): Cargo
+    totalCargos:Long
+    cargoByDescription(descripcion: String!,page: Int!, size: Int!): [Cargo!]
+    totalCargoByDescription(descripcion: String!):Int
+}
+
+extend type Mutation{
+    registrarCargo(carg: cargo): Cargo
+    actualizarCargo(carg: cargo): Cargo
+}

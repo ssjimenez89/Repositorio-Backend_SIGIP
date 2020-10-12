@@ -1,0 +1,22 @@
+type Typology {
+    id: Long!
+    description: String!
+    imputed: Boolean!
+    active: Boolean!
+    category: Category
+}
+
+extend type Query {
+    typologies: [Typology!]
+    typologiesPaging(page: Int!, size: Int!):[Typology!]
+    totalTypology:Int
+    typologyById(id: Long!): Typology
+    typologyByDescriptionContains(description: String!,page: Int!, size: Int!): [Typology!]
+    totalTypologyByDescriptionContains(description: String!):Int
+}
+
+
+extend type Mutation{
+    addTypology(description: String!,categoryId:Long!,active: Boolean!,imputed: Boolean!): Typology
+    editTypology(id: Long!, description: String!,categoryId:Long!,active: Boolean!,imputed: Boolean!): Typology
+}

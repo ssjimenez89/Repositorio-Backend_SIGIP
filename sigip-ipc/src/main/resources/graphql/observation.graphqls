@@ -1,0 +1,25 @@
+type Observation {
+    id: Long
+    description: String!
+    acronym: String!
+    active: Boolean!
+}
+
+
+extend type Query{
+    observations: [Observation!]
+    observationByDescription(description: String!): Observation
+    observationByDescriptionContains(description: String!,page: Int!, size: Int!): [Observation!]
+    totalObservationByDescriptionContains(description: String!):Int
+    observationByAcronym(acronym: String!): Observation
+    observationsPaging(page: Int!, size: Int!):[Observation!]
+    totalObservation:Int
+    observationById(id: Long!): Observation
+    observationByVariedad(varId: Long!):[Observation!]
+}
+
+
+extend type Mutation{
+    addObservation(description: String! , acronym: String!, active: Boolean!): Observation
+    editObservation(id:Long!, description: String!, acronym: String!, active: Boolean!): Observation
+}

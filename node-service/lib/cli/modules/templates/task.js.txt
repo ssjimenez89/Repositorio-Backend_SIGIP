@@ -1,0 +1,5 @@
+const executer = require('../lib/script-executer');
+
+module.exports.task = () => {
+    executer.execute('{{name}}');
+};

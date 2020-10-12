@@ -1,0 +1,31 @@
+type Currency {
+    id: Long!
+    description: String!
+    acronym: String!
+    active: Boolean
+}
+
+input moneda{
+    id: Long
+    description: String!
+    acronym: String!
+    active: Boolean
+}
+
+extend type Query {
+    currencies: [Currency!]
+    currencyByDescrip(description: String!): Currency
+    currencyByAcronym(acronym: String!): Currency
+    currencyActives: [Currency!]
+    currencyPaging(page: Int!, size: Int!):[Currency!]
+    totalCurrency:Int
+    currencyById(id: Long!): Currency
+    currencyByDescriptionContains(description: String!,page: Int!, size: Int!): [Currency!]
+    totalCurrencyByDescriptionContains(description: String!):Int
+}
+
+
+extend type Mutation{
+    addCurrency(currency: moneda!): Currency
+    editCurrency(currency: moneda!): Currency
+}

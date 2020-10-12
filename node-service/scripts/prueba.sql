@@ -1,0 +1,1 @@
+SELECT * from dcaptacion where id_dcaptacion = $1

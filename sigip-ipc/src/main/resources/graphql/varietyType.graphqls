@@ -1,0 +1,21 @@
+type VarietyType {
+    id: Long!
+    description: String!
+    active: Boolean!
+}
+
+extend type Query {
+    varietyTypes: [VarietyType!]
+    varietyTypesPaging(page: Int!, size: Int!):[VarietyType!]
+    varietyTypeById(id: Long!): VarietyType
+    totalVarietyTypes:Int
+    varietyTypeByDescriptionContains(description: String!,page: Int!, size: Int!): [VarietyType!]
+    totalVarietyTypesByDescriptionContains(description: String!):Int
+}
+
+
+extend type Mutation{
+    addVarietyType(description: String!,active: Boolean!): VarietyType
+    editVarietyType(id:Long!,description: String!,active: Boolean!): VarietyType
+
+}

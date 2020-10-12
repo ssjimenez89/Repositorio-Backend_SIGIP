@@ -1,0 +1,30 @@
+type Planning{
+    id: Long
+    week: Int!
+    day: String!
+    #    index: Int
+}
+
+input planningInput{
+    id: Long
+    week: Int!
+    day: String!
+    #    indexId: Int
+    establishmentsId: [Long]
+
+}
+
+extend type Query {
+    plannings: [Planning!]
+    planningsPaging(page: Int!, size: Int!):[Planning!]
+    planningById(id: Long!): Planning
+    totalPlannings:Int
+    planningsDayXWeek(week1: Int, week2: Int,week3: Int,week4: Int): [Planning!]
+
+}
+
+
+extend type Mutation{
+    addPlanning(planning: planningInput!): Planning!
+    editPlanning(planning: planningInput!): Planning!
+}

@@ -1,0 +1,38 @@
+type Characteristic {
+    id: Long
+    description: String
+    active: Boolean
+    specifications: [Specification]
+}
+
+type CharacteristicSpecificationResource{
+    id: Long
+    description: String!
+    active: Boolean
+    especifications:[SpecificationResource!]
+    totalespecifications: Int!
+    notAllowElimination: Boolean!
+}
+
+input CharacteristicInput{
+    description: String!
+    active: Boolean
+    especifications:[SpecificationInput!]
+}
+
+extend type Query {
+    characteristics: [Characteristic!]
+    charateristicByDescription(description: String!): Characteristic
+    charateristicByDescriptionContaining(description: String!): [Characteristic]
+    charateristicByDescriptionPage(description: String!,page: Int!, size:Int!): [CharacteristicSpecificationResource!]
+    totalcharateristicByDescriptionPage(description: String!): Int
+    charateristicById(id:Int!): CharacteristicSpecificationResource
+}
+
+extend type Mutation{
+    addCharacteristic(description: String!): Characteristic
+    addCharacteristicSpecific(characteristic: CharacteristicInput!): Characteristic
+    editCharacteristicSpecific(id: Int!,characteristic: CharacteristicInput!): Characteristic
+    deleteCharacteristicSpecific(id:Int!):Boolean
+    changeStateCharacteristicSpecific(id:Int!):Boolean
+}

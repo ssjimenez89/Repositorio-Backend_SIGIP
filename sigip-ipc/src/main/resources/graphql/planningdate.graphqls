@@ -1,0 +1,18 @@
+scalar Date
+type PlanningDate{
+    id: Long!
+    date: Date
+    planning: Planning
+}
+
+extend type Query {
+    obtenerTodasPlanificaciones: [PlanningDate!]
+    obtenerPlanificacionById(id: Long!):PlanningDate
+    obtenerAnnosPlanificados:[Int!]
+    generarAnnos(cantidadAnnosFuturos:Int):[Int!]
+    diasPlanificados(desde:Date,hasta:Date):[Planning!]
+}
+
+extend type Mutation{
+    generarPlanificacionFecha(anno: Int!): Int!
+}

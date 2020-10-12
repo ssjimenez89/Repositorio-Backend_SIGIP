@@ -1,0 +1,20 @@
+{
+  "name": "node-service",
+  "version": "1.0.0",
+  "description": "servicio para correr scripts automaticos en la db(crontab)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run": "node index.js",
+    "generate-task": "node ./lib/cli/cli.js g t"
+  },
+  "author": "Rolando",
+  "license": "ISC",
+  "dependencies": {
+    "enquirer": "^2.3.5",
+    "insert-line": "^1.1.0",
+    "line-reader": "^0.4.0",
+    "node-cron": "^2.0.3",
+    "pg": "^8.2.1"
+  }
+}

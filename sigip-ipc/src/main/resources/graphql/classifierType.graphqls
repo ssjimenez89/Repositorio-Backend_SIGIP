@@ -1,0 +1,21 @@
+type ClassifierType{
+    id: Long!
+    description: String!
+    active: Boolean
+    codeClassifier: String!
+}
+
+extend type Query {
+    classifierTypes: [ClassifierType!]
+    classifierTypesPaging(page: Int!, size: Int!):[ClassifierType!]
+    classifierTypeById(id: Long!): ClassifierType
+    totalClassifierTypes:Int
+    classifierTypeByDescriptionContains(description: String!,page: Int!, size: Int!): [ClassifierType!]
+    totalClassifierTypesByDescriptionContains(description: String!):Int
+}
+
+
+extend type Mutation{
+    addClassifierTypes(description: String!,active: Boolean!,codeClassifier: String!): ClassifierType
+    editClassifierTypes(id:Long!,description: String!,active: Boolean!,codeClassifier: String!): ClassifierType
+}

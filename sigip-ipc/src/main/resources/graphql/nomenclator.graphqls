@@ -1,0 +1,14 @@
+type Nomenclator {
+    identificador: BigInteger!
+    description: String!
+    type: String!
+    active: Boolean!
+}
+
+extend type Query {
+    nomenclatorsPaging(page: Int!, size: Int!):[Nomenclator!]
+    totalAllNomenclators:Int
+    nomenclatorsByDescriptionContains(description: String!,page: Int!, size: Int!): [Nomenclator!]
+    totalAllNomenclatorsByDescriptionContains(description: String!):Int
+    nomenclatorById(id: Long!): Nomenclator
+}

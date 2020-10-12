@@ -1,0 +1,17 @@
+input PageResource{
+    page: Int!
+    pageSize: Int!
+    orderBy: String
+    order: String
+    typologyId: Long
+    establishment: String
+    dpaId: Long
+    varietyId: Long
+    marketId: Long
+    year: String
+    mes: String
+    variedadName: String
+    semanaCaptacion: Int
+}
+type Query{ }
+type Mutation{ }

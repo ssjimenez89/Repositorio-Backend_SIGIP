@@ -1,0 +1,34 @@
+type Specification {
+    id: Long
+    description: String!
+    active: Boolean
+    characteristic: Characteristic
+    measurementUnitType: MeasurementUnitType
+}
+
+type SpecificationResource {
+    id: Long
+    description: String!
+    active: Boolean
+    notAllowElimination: Boolean
+}
+
+input SpecificationInput{
+    id: Long
+    description: String!
+    active: Boolean
+}
+
+extend type Query {
+    specifications: [Specification!]
+    specificationByDescription(description: String!): Specification
+    specificationListByCharacteristic(characteristicId:Long!): [Specification!]
+    specificationListActiveDeUM: [Specification!]
+    specificationListActiveDeCantidad: [Specification!]
+}
+
+extend type Mutation{
+    addSpecification(description: String!, characteristicId:Long!): Specification
+    deleteSpecification(id: Long!): Boolean
+    deleteSpecifications(idSpecifications: [Long!]): Boolean
+}

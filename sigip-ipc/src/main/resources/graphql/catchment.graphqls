@@ -1,0 +1,175 @@
+type Catchment {
+    id: Long!
+    date: String!
+    users: String!
+    price: Float!
+    relative: Float!
+    imputed: Boolean!
+    incidence: Incidence!
+    observation: Observation!
+    currency: Currency!
+    dVarCaracEspec:[VarietyCharactSpecific!]
+}
+input CatchmentInput {
+    id: Long!
+    #date: String!
+    users: String!
+    price: Float
+    #relative: Float!
+    #imputed: Boolean!
+    incidence: Long!
+    observation: Long!
+    dvarEstabId: Long
+    #currency: Currency!
+    #dVarCaracEspec:[Long]
+    establishment: Long!
+}
+type CaptacionResource {
+    id: Long!
+    precio: Float!
+    imputed: Boolean!
+    incidenceName: String!
+    incidenceId: Long!
+    establishmentId: Long!
+    establishmentName: String!
+    marketDescription: String!
+    varietyName: String!
+    varietyId: Long!
+    specifications: [String!]
+    dpa: DPA!
+    incidencia: Incidence
+    observacion: Observation
+    currency: Currency
+    user: String
+    caracteristicas: [String!]
+    fecha: String!
+    total: Long!
+    specs: [CaracteristicaEspecificacionResource!]
+    precioMesAnterior: Float
+    dpaCod: String
+    dpaDesc: String
+    dpaId: String
+    relativo: Float
+    varEstabId: Long
+    cant:BasicStringAndIdResource
+    unidadMedida: BasicStringAndIdResource
+}
+type CaptacionDoneResource{
+    id: Long!
+    precio: Float!
+    imputed: Boolean!
+    incidenceName: String!
+    incidenceId: Long!
+    establishmentId: Long!
+    establishmentName: String!
+    marketDescription: String!
+    varietyName: String!
+    varietyId: Long!
+    specifications: [String!]
+    dpa: DPA!
+    incidencia: Incidence
+    observacion: Observation
+    currency: Currency
+    user: String
+    caracteristicas: [String!]
+    fecha: String!
+    total: Long!
+    specs: [CaracteristicaEspecificacionResource!]
+    precioMesAnterior: Float
+    dpaCod: String
+    dpaDesc: String
+    dpaId: String
+    relativo: Float
+    varEstabId: Long
+    promedioPreciosAgropecuario: Float
+    promedioPreciosAgropecuarioAnterior: Float
+    calculoRelativoVar_Est: Float
+    calculoArticuloNacion:Float
+}
+type PendietesCaptarResource{
+    variedadDescription: String!
+    variedadId: Long!
+    specs: [CaracteristicaEspecificacionResource!]
+    establecimiento: String!
+    mercado: String!
+    total: Long!
+    dia: String!
+    varEstabId: Long!
+    moneda: String!
+    precioMesAnterior: Float
+    #varCarEsp: [Long!]
+}
+type CaracteristicaEspecificacionResource {
+    carac: BasicStringAndIdResource!
+    spec: BasicStringAndIdResource!
+}
+type BasicStringAndIdResource{
+    desc: String!,
+    id: Long!
+    tipoUM: Long
+}
+type CatchmentViewResourcePage{
+    totalItems: Long
+    resources: [CaptacionResource]
+}
+type IndiceArticuloResource{
+    id:Long!
+    idvariedad:Long!
+    indice:Float!
+    fecha:String!
+    mes:String!
+    nombreVariedad:String!
+    varCaracEsp:[CaracteristicaEspecificacionResource]!
+    dpa:DPA
+}
+type IndiceArticuloViewResourcePage{
+    totalItems: Long
+    resources: [IndiceArticuloResource]
+}
+input captacion{
+    id:Long
+    date: String
+    users: String!
+    price: Float!
+    relative: Float!
+    imputed: Boolean!
+    idIncidence: Long!
+    idObservation: Long!
+    idCurrency: Long!
+}
+
+input captacionImpute{
+    id: Long!
+    lastPrice: Float!
+}
+
+extend type Query {
+    catchments: [Catchment!]
+    catchmentPaging(page: Int!, size: Int!):[Catchment!]
+    catchmentById(id: Long!): Catchment
+    catchmentsByFilter(marketId:Long!,typologyId:Long!,establishment: String!,dpaId: Long!,varietyId: Long!,fechaDigitada: Date!,year: String!,mes: String!,variedadName: String!,paging: Int!, size: Int!):[CaptacionResource!]
+    catchmentsFueraDeRango(marketId:Long!,typologyId:Long!,establishment: String!,dpaId: Long!,varietyId: Long!,paging: Int!, size: Int!):[CaptacionResource!]
+    totalCatchment:Int
+    catchmentByUsersContains(users: String!,page: Int!, size: Int!): [Catchment!]
+    totalCatchmentByUsersContains(users: String!):Int
+    captacionesPendientes(establishmentId: Long!, start: Date, end: Date, page: Int!, size: Int!): [PendietesCaptarResource!]
+    captacionesPendientesAll(establishmentId: Long!,dpaId: Long!,marketId: Long!,tipologyId: Long start: Date, end: Date, page: Int!, size: Int!): [PendietesCaptarResource!]
+    allYearsCatchment :[Int!]
+    cantFaltaOcacional(idVariedad: Long!, idEstableciemiento: Long!, startDate: Date!, endDate: Date!) : Int!
+    catchmentImputarList(page: PageResource!):CatchmentViewResourcePage!
+    catchmentOutRange(page: PageResource!):CatchmentViewResourcePage!
+    cambioUM(precioObservado: Float!, cantidadObservada: Float!, specificationIdUMObservada: Long!, cantidadActual: Float!, specificationIdUMActual: Long!,varEstabId: Long!):Float
+    listUMsByTipoUM(tipoUM: Long!): [Specification!]
+    calculoArticuloNacionMes(page:PageResource!):IndiceArticuloViewResourcePage!
+}
+
+extend type Mutation{
+    addCatchment(catchmentInputs: [CatchmentInput!]): Boolean
+    editCatchment(capt: CatchmentInput!): CaptacionResource!
+    deleteCatchment(id: Long!): Long!
+    imputeCatchment(captacion: [captacionImpute!]): Boolean
+    agreeCatchmentOutRange(id:[Long!]):Boolean
+    calculoRelativoVar_Est(page: PageResource!):CatchmentViewResourcePage!
+    calculoArticuloNacion(mun:Boolean):Boolean!
+    microIndiceMunicipio:Boolean!
+}

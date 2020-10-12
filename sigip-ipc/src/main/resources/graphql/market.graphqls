@@ -1,0 +1,21 @@
+type Market {
+    id: Long!
+    description: String!
+    active: Boolean!
+}
+
+extend type Query {
+    markets: [Market!]
+    marketsPaging(page: Int!, size: Int!):[Market!]
+    totalMarket:Int
+    marketById(id: Long!): Market
+    marketByDescriptionContains(description: String!,page: Int!, size: Int!): [Market!]
+    totalMarketByDescriptionContains(description: String!):Int
+    marketsByDescriptionContains(description: String!): [Market!]
+}
+
+
+extend type Mutation{
+    addMarket(description: String!,active: Boolean!): Market
+    editMarket(id:Long!,description: String!,active: Boolean!): Market
+}

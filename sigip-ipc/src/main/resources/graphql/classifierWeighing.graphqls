@@ -1,0 +1,6 @@
+type ClassifierWeighing {
+    id: Long!
+    value: Float!
+    currency: Currency!
+    weighingType: WeighingType!
+}

@@ -1,0 +1,18 @@
+type MarketCurrency{
+    id: Long
+    currency: Currency!
+    market: Market!
+}
+
+type MercadoMonedaResource{
+    id: Long
+    description: String
+}
+
+
+extend type Query {
+   marketsCurrencies: [MercadoMonedaResource]
+}
+
+extend type Mutation{
+}

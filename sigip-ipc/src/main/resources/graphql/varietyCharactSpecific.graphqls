@@ -1,0 +1,13 @@
+type VarietyCharactSpecific {
+    id: Long!
+    classifier: Classifier!
+    specification: Specification!
+    active: Boolean
+}
+
+extend type Query{
+    findByVarietyCharactSpecificActive(classifierId: Long!): [VarietyCharactSpecific!]
+    caracteristicasSpecsByVarEstabId(id:Long!):[CaracteristicaEspecificacionResource]
+    caracteristicasSpecsByCatchmentId(id:Long!):[CaracteristicaEspecificacionResource]
+}
+extend type Mutation{}

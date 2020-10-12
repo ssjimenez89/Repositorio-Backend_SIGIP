@@ -1,0 +1,10 @@
+{
+  "db": {
+    "user": "roly",
+    "pass": "roly",
+    "host": "localhost",
+    "port": "5433",
+    "dbName": "pruebaService",
+    "schema": "public"
+  }
+}

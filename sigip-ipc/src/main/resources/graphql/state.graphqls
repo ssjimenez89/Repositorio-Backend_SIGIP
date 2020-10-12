@@ -1,0 +1,23 @@
+type State{
+    id: Long!
+    descripcion: String!
+    activo: Boolean
+}
+
+input estadoInput{
+    id: Long
+    descripcion: String!
+    activo: Boolean
+}
+
+extend type Query {
+    allStates: [State!]
+    stateByDescripcion(descripcion: String!): State
+    stateById(id: Long!): State
+}
+
+
+extend type Mutation{
+    addState(estado: estadoInput!): State!
+    editState(estado: estadoInput!): State!
+}

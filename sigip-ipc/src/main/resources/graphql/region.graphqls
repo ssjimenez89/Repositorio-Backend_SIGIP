@@ -1,0 +1,29 @@
+type Region{
+    id: Long!
+    descripcion: String!
+    activo: Boolean!
+
+
+}
+
+input region{
+    id: Long
+    descripcion: String!
+    activo: Boolean
+}
+
+extend type Query {
+    regiones: [Region!]
+    regionesPaging(page: Int!, size: Int!): [Region!]
+    regionById(id: Long!): Region
+    totalRegiones: Long
+    regionByDescripcion(descripcion: String!, page: Int!, size: Int!): [Region!]
+    totalRegionByDescripciones(descripcion: String!):Int
+
+}
+
+extend type Mutation {
+    registrarRegion(reg: region): Region
+    actualizarRegion(reg: region): Region
+
+}

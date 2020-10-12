@@ -1,0 +1,62 @@
+type VarietyEstablishment {
+    id: Long!
+    active:Boolean!
+    establishment: Establishment!
+    state: State!
+    # measurementUnit: MeasurementUnit!
+    # catchment: Catchment
+    planning:Planning
+    classifier:Classifier
+    unidadMedida:Specification
+    cantidad:Specification
+    varietyCharactSpecifics: [VarietyCharactSpecific!]
+}
+
+type VariedadEstablecimientoResource{
+    listIdVarEstab: [Long!]
+    varietyEstablishment: VarietyEstablishment
+    active: Boolean!
+    establecimientoDescripcion: String!
+    stateDescripcion: String!
+    mercadoDescripcion: String!
+    monedaDescripcion: String!
+    dpaDescripcion: String!
+    variedadDescripcion: String!
+    unidadMedidaDescripcion: String!
+    cantidadDescripcion: String!
+    dayPlanning1Id1: Long
+    dayPlanning1: String!
+    dayPlanning1Id2: Long
+    dayPlanning2: String!
+    dayPlanning1Id3: Long
+    dayPlanning3: String!
+    dayPlanning1Id4: Long
+    dayPlanning4: String!
+
+}
+
+input CharactSpecificVariety{
+    varietyId: Long!
+    characteristicId: Long!
+    specificationId: Long!
+}
+
+extend type Query {
+    varietyEstablishmentByid(id:Long!):VarietyEstablishment
+    varietyEstablishmentResourceByid(id:Long!):VariedadEstablecimientoResource
+    varietyEstablishmentPaging(size: Int!, page: Int!):[VarietyEstablishment!]
+    totalVarietyEstablishment:Int
+    filterVarietyEstablishment(marketId:Long!,typologyId:Long!,dpaId: Long!,establishment: String!,variety:String!,stateId:Long!,page: Int!, size: Int!):[VarietyEstablishment!]
+    filterVarietyEstablishmentResource(marketId:Long!,typologyId:Long!,dpaId: Long!,establishment: String!,variety:String!,stateId:Long!,page: Int!, size: Int!):[VariedadEstablecimientoResource!]
+    totalVarietyEstablishmentByFilter(marketId:Long!,typologyId:Long!,dpaId: Long!,establishment: String!,variety:String!,stateId:Long!,page: Int! ,size: Int!):Int!
+    isAllCathedValidation:Boolean!
+    isMonthClosed: Boolean!
+}
+
+extend type Mutation{
+    addVarietyEstablishment(establishmentId:Long!,stateId:Long!,varietyCharactSpecificsId:[CharactSpecificVariety!], planningListId: [Long!], unidadMedidaId: Long!, cantidadId: Long! ): [VarietyEstablishment!]
+    editVarietyEstablishment(id:Long, charactSpecificVariety:[CharactSpecificVariety], planningListId: [Long!], unidadMedidaId: Long!, cantidadId: Long! ):[VarietyEstablishment!]
+    deleteVarietyEstablishment(id: Long!):Boolean!
+    setActiveVarietyEstablishment(id:Long!):VarietyEstablishment!
+    setEstadoVarietyEstablishment(idVarietyStab:Long!,idstate:Long!):VarietyEstablishment!
+}

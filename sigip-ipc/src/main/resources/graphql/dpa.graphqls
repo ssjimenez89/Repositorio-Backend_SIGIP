@@ -1,0 +1,34 @@
+type DPA {
+    id: Long!
+    code: String
+    description: String
+    active: Boolean!
+    region: Region
+    parent: DPA
+    childrens: [DPA]
+
+}
+
+type DPAResource {
+    id: Long!
+    description: String!
+}
+
+extend type Query {
+    dpas:[DPA!]
+    findAllDPAResource: [DPAResource!]
+    #dpasActives:[DPA!]
+    dpasPaging(page: Int!, size: Int!):[DPA!]
+    allChildrensByIdParent(idParent: Long):[DPA!]
+    totalDpa:Int
+    dpaById(id: Long!): DPA
+    dpaByDescriptionContains(description: String!,page: Int!, size: Int!): [DPA!]
+    totalDpaByDescriptionContains(description: String!):Int
+
+}
+
+
+extend type Mutation{
+    addDPA(code: String!, description: String!, active: Boolean!, regionId:Long,  parent: Long): DPA
+    editDPA(id: Long!, code: String!, description: String!, active: Boolean!, regionId:Long, parent: Long): DPA
+}
